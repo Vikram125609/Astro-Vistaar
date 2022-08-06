@@ -1,12 +1,4 @@
-// const Specialization = require('./specialization');
 const mongoose = require('mongoose');
-const special = mongoose.Schema(
-    {
-        Module: String,
-        Title: String,
-        Description: String
-    },
-)
 const Course = new mongoose.Schema({
     Title: {
         type: String,
