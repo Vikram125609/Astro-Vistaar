@@ -1,4 +1,12 @@
+// const Specialization = require('./specialization');
 const mongoose = require('mongoose');
+const special = mongoose.Schema(
+    {
+        Module: String,
+        Title: String,
+        Description: String
+    },
+)
 const Course = new mongoose.Schema({
     Title: {
         type: String,
@@ -10,7 +18,7 @@ const Course = new mongoose.Schema({
     },
     Status: {
         type: String,
-        default:"Upcoming"
+        default: "Upcoming"
     },
     Start_Date: {
         type: Date,
@@ -21,6 +29,10 @@ const Course = new mongoose.Schema({
         required: [true, "Please Enter End Date"]
     },
     User: {
+        type: Array,
+        default: []
+    },
+    Specialization: {
         type: Array,
         default: []
     }

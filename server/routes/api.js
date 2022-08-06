@@ -55,7 +55,7 @@ router.get('/getalluser', async (req, res) => {
     }
 })
 // Add Courses Only Admin
-router.post('/addcourse', async (req, res) => {
+router.post('/admin/addcourse', async (req, res) => {
     try {
         const { Title, Description, Start_Date, End_Date } = req.body;
         const course = new Course({ Title, Description, Start_Date: Date.now() + (Start_Date * 86400000), End_Date: Date.now() + (End_Date * 86400000) });
@@ -80,16 +80,27 @@ router.get('/getallcourse', async (req, res) => {
                 await e.updateOne({ Status: "Upcoming" });
             }
             else if (e.Start_Date < Date.now() && Date.now() < e.End_Date) {
-                await e.updateOne({Status:"Ongoing"});
+                await e.updateOne({ Status: "Ongoing" });
             }
-            else
-            {
-                await e.updateOne({Status:"Closed"});
+            else {
+                await e.updateOne({ Status: "Closed" });
             }
         });
         return res.status(200).json({ success: true, courses });
     } catch (error) {
         return res.status(200).json({ success: true, error });
+    }
+});
+// Update Course Specialization
+router.put('/admin/course/specialize/:id', async (req, res) => {
+    try {
+        const { Module, Title, Description } = req.body;
+        const id = req.params.id;
+        let course = await Course.findById(id);
+        course = await course.updateOne({ $push: { Specialization: { Module, Title, Description } } });
+        res.status(200).json({ success: true, course });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error });
     }
 })
 // Enroll In A Course
