@@ -49,7 +49,7 @@ router.post('/login', async (req, res) => {
 router.get('/getalluser', async (req, res) => {
     try {
         const user = await User.find();
-        return res.status(200).json({ success: true, message: user });
+        return res.status(200).json(user);
     } catch (error) {
         return res.status(500).json({ success: false, message: error });
     }
@@ -150,4 +150,13 @@ router.get('/enrolleduser/:id', async (req, res) => {
         return res.status(500).json({ success: false, message: error });
     }
 });
+router.get('/getcourse/:id', async (req, res) => {
+    try {
+        const courseId = req.params.id;
+        const course = await Course.findById(courseId);
+        res.status(200).json(course);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+})
 module.exports = router;

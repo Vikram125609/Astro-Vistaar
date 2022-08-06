@@ -25,7 +25,7 @@ const Courses = () => {
   }, [])
   return (
     <div>
-
+      <h1 style={{textAlign:"center"}}>All Courses That We Offered</h1>
       {(data.map((data, id) => {
         return (<CourseCard key={id} Title={data.Title} Description={data.Description} StartDate={data.Start_Date} Status={data.Status} EndDate={data.End_Date} Specialization={data.Specialization}/>)
       }))}

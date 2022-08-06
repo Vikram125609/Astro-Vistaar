@@ -5,14 +5,15 @@ const CourseCard = (props) => {
     return (
         <>
             <div className='courseCard'>
-                <h1>World Premium Courses</h1>
+                <h1 style={{textAlign:"center"}}>World Premium Courses On {props.Title}</h1>
                 <h1>Title : {props.Title}</h1>
                 <h1>Description:{props.Description}</h1>
                 <h1>Start Date:{props.StartDate}</h1>
                 <h1>Status:{props.Status}</h1>
                 <h1>End Date:{props.EndDate}</h1>
+                <h1 className='specialization'>Specialization : {special.length}</h1>
                 {(special.map((data, id) => {
-                    
+
                     return (<div className='specialization' key={id}>
                         <h1>{id}</h1>
                         <h1>{data.Module}</h1>

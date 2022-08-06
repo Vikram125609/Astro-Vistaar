@@ -1,9 +1,9 @@
 .courseCard
 {
-    background-color: rebeccapurple;
+    background-color: royalblue;
+    color: white;
     margin: 1rem;
     padding: 1rem;
-    color: white;
     border-radius: 1rem;
 }
 .specialization
