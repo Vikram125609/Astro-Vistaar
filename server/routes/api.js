@@ -86,7 +86,7 @@ router.get('/getallcourse', async (req, res) => {
                 await e.updateOne({ Status: "Closed" });
             }
         });
-        return res.status(200).json({ success: true, courses });
+        return res.status(200).json(courses);
     } catch (error) {
         return res.status(200).json({ success: true, error });
     }

@@ -1,0 +1,12 @@
+.courseCard
+{
+    background-color: rebeccapurple;
+    margin: 1rem;
+    padding: 1rem;
+    color: white;
+    border-radius: 1rem;
+}
+.specialization
+{
+    color: black;
+}
