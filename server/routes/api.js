@@ -7,7 +7,9 @@ const Course = require('../models/course');
 router.post('/adduser', async (req, res) => {
     try {
         const { Name, Contact, Email, Password } = req.body;
-        const user = new User({ Name, Contact, Email, Password });
+        console.log(req.body);
+        console.log("Hi");
+        const user = new User({ Name:Name[0], Contact:Contact[0], Email:Email[0], Password:Password[0] });
         await user.save();
         return res.status(201).json({ success: true, message: user });
     } catch (error) {
