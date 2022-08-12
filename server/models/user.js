@@ -10,6 +10,10 @@ const User = new mongoose.Schema({
         type: String,
         required: [true, "Please Enter Your Contact"]
     },
+    isAdmin: {
+        type:Boolean,
+        default:false
+    },
     Email: {
         type: String,
         unique: [true, "User Already Exist"],

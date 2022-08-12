@@ -4,7 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { TextField, Button } from '@mui/material';
 import { Box } from '@mui/system';
 import GoogleIcon from '@mui/icons-material/Google';
+import axios from 'axios'
 const Login = () => {
+    const [user,setUser] = useState(null);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -13,29 +15,36 @@ const Login = () => {
     };
     const login = async (e) => {
         e.preventDefault();
-        const res = await fetch('http://localhost:5000/api/Login', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                email,password
-            })
-        })
-        const data = await res.json();
-        console.log(data);
-        if(res.status === 400 || !data)
-        {
-            window.alert("please enter your email or password");
+        try {
+            let res = await axios.post("http://localhost:5000/api/Login",{email,password});
+            console.log(res.data);
+            setUser(res.data);
+        } catch (error) {
+            console.log(error);
         }
-        else if(res.status === 404)
-        {
-            window.alert("Invalid Credentials");
-        }
-        else
-        {
-            navigate('/');
-        }
+        // const res = await fetch('http://localhost:5000/api/Login', {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify({
+        //         email,password
+        //     })
+        // })
+        // const data = await res.json();
+        // console.log(data);
+        // if(res.status === 400 || !data)
+        // {
+        //     window.alert("please enter your email or password");
+        // }
+        // else if(res.status === 404)
+        // {
+        //     window.alert("Invalid Credentials");
+        // }
+        // else
+        // {
+        //     navigate('/');
+        // }
     }
     return (
         <>
