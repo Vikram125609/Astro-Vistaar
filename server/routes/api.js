@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const Course = require('../models/course');
 // Add User
@@ -8,8 +9,7 @@ router.post('/adduser', async (req, res) => {
     try {
         const { Name, Contact, Email, Password } = req.body;
         console.log(req.body);
-        console.log("Hi");
-        const user = new User({ Name:Name[0], Contact:Contact[0], Email:Email[0], Password:Password[0] });
+        const user = new User({ Name: Name[0], Contact: Contact[0], Email: Email[0], Password: Password[0] });
         await user.save();
         return res.status(201).json({ success: true, message: user });
     } catch (error) {
@@ -17,15 +17,15 @@ router.post('/adduser', async (req, res) => {
     }
 })
 // Login User
-router.post('/login', async (req, res) => {
+router.post('/Login', async (req, res) => {
     try {
-        const { Email, Password } = req.body;
-        if (!Email || !Password) {
+        const { email, password } = req.body;
+        if (!email || !password) {
             return res.status(400).json({ success: false, message: "please enter your email or password" })
         }
-        const userExist = await User.findOne({ Email: Email });
+        const userExist = await User.findOne({ Email: email });
         if (userExist != null) {
-            const isSame = await bcrypt.compare(Password, userExist.Password);
+            const isSame = await bcrypt.compare(password, userExist.Password);
             if (isSame) {
                 token = await userExist.generateAuthToken();
                 console.log(token);
@@ -125,21 +125,18 @@ router.post('/enroll/:id', async (req, res) => {
     }
 });
 // User Enrolled Courses
-router.get('/enrolledcourses/:id', async (req, res) => {
-    try {
-        const user = await User.findById(req.params.id);
-        const EnrolledCourse = user.Enrolled;
-        EnrolledCourse.forEach(async (e) => {
-            let course = await Course.findById(e);
-            console.log(course);
-        });
-        return res.status(200).json({ success: true, EnrolledCourse })
-    } catch (error) {
-        return res.status(500).json({ success: false, message: error });
-    }
+router.get('/user/:id', async (req, res) => {
+    console.log(req.params.id);
+    const user = await User.findById(req.params.id);
+    const EnrolledCourses = user.EnrolledCourses;
+    EnrolledCourses.forEach(async (e) => {
+        let course = await Course.findById(e);
+        console.log(course);
+    })
+    return res.status(200).json({success:true,EnrolledCourses})
 });
 // Enrolled User in a course
-router.get('/enrolleduser/:id', async (req, res) => {
+router.get('/course/:id', async (req, res) => {
     try {
         const course = await Course.findById(req.params.id);
         const EnrolledUser = course.User;

@@ -23,7 +23,7 @@ const User = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
-    Enrolled: {
+    EnrolledCourses: {
         type: Array,
         default: []
     },

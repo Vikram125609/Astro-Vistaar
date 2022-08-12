@@ -9,7 +9,7 @@ const UserCard = (props) => {
     // "End_Date":""
     const allcourses = async () => {
         // props.Enrolled.forEach(async (element) => {
-        for (const element of props.Enrolled) {
+        for (const element of props.EnrolledCourses) {
             const res = await fetch(`http://localhost:5000/api/getcourse/${element}`, {
                 method: "GET",
                 headers: {

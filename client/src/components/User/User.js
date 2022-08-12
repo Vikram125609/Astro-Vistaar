@@ -27,7 +27,7 @@ const User = () => {
         (user.map((data, id) => {
           console.log("name :" + data.Name);
           console.log(data.Enrolled)
-          return (<UserCard key={id} Name={data.Name} Contact={data.Contact} Email={data.Email} Password={data.Password} Enrolled={data.Enrolled} />)
+          return (<UserCard key={id} Name={data.Name} Contact={data.Contact} Email={data.Email} Password={data.Password} EnrolledCourses={data.EnrolledCourses} />)
         }))
       }
 
